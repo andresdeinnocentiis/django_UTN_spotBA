@@ -7,6 +7,11 @@
     <title>Index</title>
 </head>
 <body>
-    <h1>Testing site: {{ nombre_sitio }} OK.</h1>
+    {% if request.user.is_authenticated %}
+        <h1>Testing site: {{ nombre_sitio }} OK.</h1>
+        <p>Usuario autenticado</p>
+    {% else %}
+        <p>Debe estar autenticado para ver el contendio.</p>
+    {% endif %}
 </body>
 </html>

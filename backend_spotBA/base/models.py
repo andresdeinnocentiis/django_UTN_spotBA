@@ -153,6 +153,22 @@ class AcquirementsDetail(models.Model):
     currency            = models.CharField(max_length=3, choices=CURRENCIES, default='USD', null=True, blank=True)
     boughtPrice         = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
 
+    STATUS = (
+        ('IN STOCK', 'IN STOCK'),
+        ('SOLD', 'SOLD'),
+        ('STOLEN', 'STOLEN'),
+        ('TRADED', 'TRADED'),
+    )
+    status              = models.CharField(max_length=20, choices=STATUS, default='IN STOCK', null=True, blank=True)
+    LOCATIONS = (
+        ('DROPS', 'DROPS'),
+        ('ICECLUB', 'ICECLUB'),
+        ('USA.NICKY', 'USA.NICKY'),
+        ('SPOT 1', 'SPOT 1'),
+        ('SPOT 2', 'SPOT 2'),
+        ('SPOT 3', 'SPOT 3'),
+    )
+    location            = models.CharField(max_length=20, choices=LOCATIONS, null=True, blank=True)
     
 
 class Review(models.Model):

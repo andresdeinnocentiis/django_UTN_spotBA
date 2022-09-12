@@ -61,9 +61,9 @@ class ProviderAdmin(admin.ModelAdmin):
 
 @admin.register(AcquirementsDetail)
 class AcquirementsDetailAdmin(admin.ModelAdmin):
-    list_display = ['_id', 'product_id', 'product','provider', 'boughtAt', 'boughtPrice']
-    list_filter = ('product_id','product',  'provider', 'boughtAt', 'boughtPrice', )
-    search_fields = ('product_id','product', 'provider', 'boughtAt', 'boughtPrice', )
+    list_display = ['_id', 'product_id', 'product','provider', 'boughtAt', 'boughtPrice','status','location']
+    list_filter = ('product_id','product',  'provider', 'boughtAt', 'boughtPrice','status','location', )
+    search_fields = ('product_id','product', 'provider', 'boughtAt', 'boughtPrice','status','location', )
     ordering = ['_id']
 
 
