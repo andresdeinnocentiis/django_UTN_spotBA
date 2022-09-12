@@ -5,7 +5,9 @@ from .models import CustomUser, Provider, Brand, Category, Product, Address, Pho
 class ProductInline(admin.TabularInline):
      model = Product
      extras = 0
+     
 
+# Register your models here.
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -123,5 +125,5 @@ class ReviewAdmin(admin.ModelAdmin):
     search_fields = ('user','product','rating', )
     ordering = ['_id']
     
-# Register your models here.
+
 
