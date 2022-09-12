@@ -38,8 +38,8 @@ class CustomUser(AbstractUser):
     # Own attributes:
     email               = models.EmailField(unique=True)
     birthday            = models.DateField(blank=False, null=False)
-    amount_purchases    = models.IntegerField(blank=True, null=True)
-    money_spent         = models.DecimalField(max_digits=30, decimal_places=2, blank=True,null=True)
+    amount_purchases    = models.IntegerField(blank=True, null=True, default=0)
+    money_spent         = models.DecimalField(max_digits=30, decimal_places=2, blank=True,null=True, default=0)
     shoe_size           = models.CharField(max_length=50, blank=True, null=True)
     upper_size          = models.CharField(max_length=50, blank=True, null=True)
     lower_size          = models.CharField(max_length=50, blank=True, null=True)
