@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # My apps:
-    'base',
+    'base.apps.BaseConfig',
 ]
 
 AUTH_USER_MODEL = 'base.CustomUser'
