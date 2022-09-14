@@ -64,6 +64,14 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
+    
+class Model(models.Model):
+    _id                 = models.AutoField(primary_key=True, editable=False)
+    name                = models.CharField(max_length=200, null=True, blank=True, unique=True) 
+     
+    def __str__(self):
+        return self.name
+    
 
 
 class Provider(models.Model):
@@ -82,17 +90,13 @@ class Provider(models.Model):
         return self.name
 
 
-class Product(models.Model):
+
+class Size(models.Model):
     _id                 = models.AutoField(primary_key=True, editable=False)
-    
-    # Foreign keys:
-    user                = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True) # "on_delete=models.SET_NULL" significa que aunque se elimine el usuario, no se elimina lo que él creó (ej. los productos)
-    category            = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    brand               = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True) 
-    
+
     # Own attributes:
-    name                = models.CharField(max_length=200, null=False, blank=False)
-    size                = models.CharField(max_length=50, null=True, blank=True)
+    size                = models.CharField(max_length=50, null=True, blank=False)
+    
     SIZE_TYPES = (
         ('US', 'US'),
         ('W', 'W'),
@@ -110,14 +114,39 @@ class Product(models.Model):
         ('C', 'C'),
     )
     size_type           = models.CharField(max_length=10, choices=SIZE_TYPES, null=True, blank=True)
-    colorway            = models.CharField(max_length=50, null=True, blank=True)
+    
+    GENDERS = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('U', 'Unisex'),
+    )
+    gender              = models.CharField(max_length=50, choices=GENDERS, null=True, blank=False)
+    
+    
+    def __str__(self) -> str:
+        return f'{self.size} ({self.size_type}) - {self.gender}'
+    
+    
+
+class Product(models.Model):
+    _id                 = models.AutoField(primary_key=True, editable=False)
+    
+    # Foreign keys:
+    user                = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True) # "on_delete=models.SET_NULL" significa que aunque se elimine el usuario, no se elimina lo que él creó (ej. los productos)
+    category            = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    brand               = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True) 
+    model               = models.ForeignKey(Model, on_delete=models.SET_NULL, null=True) 
+    size                = models.ForeignKey(Size, on_delete=models.SET_NULL, null=True) 
+    
+    # Own attributes:
+    name                = models.CharField(max_length=200, null=False, blank=False)
+    
     CONDITIONS = (
         ('DS', 'DS'),
         ('VNDS', 'VNDS'),
         ('USED', 'USED'),
     )
     condition           = models.CharField(max_length=10, choices=CONDITIONS, null=True, blank=True)
-    model               = models.CharField(max_length=50, null=True, blank=True)
     
     price               = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
     CURRENCIES = (
@@ -134,7 +163,7 @@ class Product(models.Model):
     
      
     def __str__(self):
-        return f'{self.name} / {self.brand if self.brand else "No brand"} / {self.model if self.model else "No model"} / {self.colorway if self.colorway else ""} / {self.size + " (" + self.size_type + ")" if self.size else ""} / {self.condition if self.condition else ""}'
+        return f'{self.name} / {self.brand if self.brand else "No brand"} / {self.model if self.model else "No model"} / {self.size} / {self.condition if self.condition else ""}'
 
 
 class AcquirementsDetail(models.Model):
@@ -169,7 +198,8 @@ class AcquirementsDetail(models.Model):
         ('SPOT 3', 'SPOT 3'),
     )
     location            = models.CharField(max_length=20, choices=LOCATIONS, null=True, blank=True)
-    
+    soldPrice           = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
+    soldAt              = models.DateTimeField(null=True, blank=True)
 
 class Review(models.Model):
     _id                 = models.AutoField(primary_key=True, editable=False)

@@ -1,31 +1,33 @@
 from django.contrib import admin
-from .models import CustomUser, Provider, Brand, Category, Product, Address, Phone, ShippingAddress, Review, Order, OrderItem, AcquirementsDetail
+from .models import CustomUser, Provider, Brand, Category, Product, Address, Phone, ShippingAddress, Review, Order, OrderItem, AcquirementsDetail,Size, Model
 
 
 class ProductInline(admin.TabularInline):
-     model = Product
-     extras = 0
-     
+    model = Product
+    extras = 0
+   
 
-# Register your models here.
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+   
     fieldsets = [
         ('General Info', {
             'fields': [
-                'user', 'name', 'model', 'colorway', 'condition', 'currency', 'price', 'stock', 'description', 
+                'user', 'category','brand', 'model', 'name', 'condition', 
             ]
         }),
+        
         ('Size', {
             'fields': [
-                'size_type', 'size', 
-            ]
+               'size',
+           ]
         }),
-        ("Relationship", {
-            'fields':[
-            'brand', 'category'
-            ]
+        ('Price & Stock', {
+            'fields': [
+               'currency', 'price', 'stock',  
+           ]
         }),
         ('Image',{
             'fields':[
@@ -34,14 +36,16 @@ class ProductAdmin(admin.ModelAdmin):
         }),
         ('Other info',{
             'fields':[
-                'rating', 'numReviews'
+                'description', 'rating', 'numReviews',
             ]
         }),
         
+        
     ]
-    list_display = ['_id','name', 'brand', 'model', 'colorway','size', 'size_type', 'currency', 'price', 'stock', 'description', 'category', 'image', 'rating', 'numReviews','user']
-    list_filter = ('name', 'brand', 'price', 'category', 'rating', 'stock', 'numReviews','size', 'size_type',)
-    search_fields = ('name', 'brand', 'price', 'category', 'rating', 'stock', 'numReviews','size', 'size_type',)
+
+    list_display = ['_id','name', 'brand', 'model', 'size', 'currency', 'price', 'stock', 'description', 'category', 'image', 'rating', 'numReviews','user']
+    list_filter = ('name', 'brand', 'price', 'category', 'rating', 'stock', 'numReviews','size__size', 'size__size_type',)
+    search_fields = ('name', 'brand', 'price', 'category', 'rating', 'stock', 'numReviews','size__size', 'size__size_type',)
     ordering = ['_id']
 
 @admin.register(CustomUser)
@@ -61,9 +65,17 @@ class ProviderAdmin(admin.ModelAdmin):
 
 @admin.register(AcquirementsDetail)
 class AcquirementsDetailAdmin(admin.ModelAdmin):
-    list_display = ['_id', 'product_id', 'product','provider', 'boughtAt', 'boughtPrice','status','location']
-    list_filter = ('product_id','product',  'provider', 'boughtAt', 'boughtPrice','status','location', )
-    search_fields = ('product_id','product', 'provider', 'boughtAt', 'boughtPrice','status','location', )
+    list_display = ['_id', 'product_id', 'product','provider', 'boughtAt', 'boughtPrice','status','location',"soldPrice","soldAt"]
+    list_filter = ('product_id','product',  'provider', 'boughtAt', 'boughtPrice','status','location',"soldPrice","soldAt", )
+    search_fields = ('product_id','product', 'provider', 'boughtAt', 'boughtPrice','status','location',"soldPrice","soldAt", )
+    ordering = ['_id']
+
+
+@admin.register(Size)
+class SizeAdmin(admin.ModelAdmin):
+    list_display = ['_id','size', 'size_type', 'gender']
+    list_filter = ('size', 'size_type', 'gender',)
+    search_fields = ('size', 'size_type', 'gender',)
     ordering = ['_id']
 
 
@@ -112,6 +124,13 @@ class BrandAdmin(admin.ModelAdmin):
 
 @admin.register(Category) 
 class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['_id','name']
+    list_filter = ('name',)
+    search_fields = ('name',)
+    ordering = ['_id']
+
+@admin.register(Model) 
+class ModelAdmin(admin.ModelAdmin):
     list_display = ['_id','name']
     list_filter = ('name',)
     search_fields = ('name',)
