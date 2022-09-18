@@ -1,9 +1,13 @@
 from django.contrib import admin
-from .models import CustomUser, Provider, Brand, Category, Product, Address, Phone, ShippingAddress, Review, Order, OrderItem, AcquirementsDetail,Size, Model
+from .models import CustomUser, Provider, Brand, Category, Product, Address, Phone, ShippingAddress, Review, Order, OrderItem, AcquirementsDetail,Size, Model, DiscountCoupon, Promotion
 
 
 class ProductInline(admin.TabularInline):
     model = Product
+    extras = 0
+
+class DiscountCouponInline(admin.TabularInline):
+    model = DiscountCoupon
     extras = 0
    
 
@@ -15,7 +19,7 @@ class ProductAdmin(admin.ModelAdmin):
     fieldsets = [
         ('General Info', {
             'fields': [
-                'user', 'category','brand', 'model', 'name', 'condition', 
+                'user', 'category','brand', 'model', 'name', 'condition',
             ]
         }),
         
@@ -34,6 +38,11 @@ class ProductAdmin(admin.ModelAdmin):
                 'image'
             ]
         }),
+        ('Promotion',{
+            'fields':[
+                'promotion',
+            ]
+        }),
         ('Other info',{
             'fields':[
                 'description', 'rating', 'numReviews',
@@ -43,7 +52,7 @@ class ProductAdmin(admin.ModelAdmin):
         
     ]
 
-    list_display = ['_id','name', 'brand', 'model', 'size', 'currency', 'price', 'stock', 'description', 'category', 'image', 'rating', 'numReviews','user']
+    list_display = ['_id','category', 'brand', 'model', 'name', 'size', 'currency', 'price', 'stock', 'description', 'promotion', 'image', 'rating', 'numReviews','user']
     list_filter = ('name', 'brand', 'price', 'category', 'rating', 'stock', 'numReviews','size__size', 'size__size_type',)
     search_fields = ('name', 'brand', 'price', 'category', 'rating', 'stock', 'numReviews','size__size', 'size__size_type',)
     ordering = ['_id']
@@ -54,6 +63,7 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ('username', 'email', 'address', 'amount_purchases', 'money_spent', 'shoe_size', 'upper_size', 'lower_size', )
     search_fields = ('username', 'email', 'address', 'amount_purchases', 'money_spent', 'shoe_size', 'upper_size', 'lower_size',)
     ordering = ['id']
+    inlines = [DiscountCouponInline]
     
 
 @admin.register(Provider)
@@ -65,9 +75,9 @@ class ProviderAdmin(admin.ModelAdmin):
 
 @admin.register(AcquirementsDetail)
 class AcquirementsDetailAdmin(admin.ModelAdmin):
-    list_display = ['_id', 'product_id', 'product','provider', 'boughtAt', 'boughtPrice','status','location',"soldPrice","soldAt"]
-    list_filter = ('product_id','product',  'provider', 'boughtAt', 'boughtPrice','status','location',"soldPrice","soldAt", )
-    search_fields = ('product_id','product', 'provider', 'boughtAt', 'boughtPrice','status','location',"soldPrice","soldAt", )
+    list_display = ['_id', 'product_id', 'product','provider', 'boughtAt','currency',  'boughtPrice','status','location',"soldPrice","soldAt"]
+    list_filter = ('product_id','product',  'provider', 'boughtAt','currency', 'boughtPrice','status','location',"soldPrice","soldAt", )
+    search_fields = ('product_id','product', 'provider', 'boughtAt','currency',  'boughtPrice','status','location',"soldPrice","soldAt", )
     ordering = ['_id']
 
 
@@ -143,6 +153,23 @@ class ReviewAdmin(admin.ModelAdmin):
     list_filter = ('user','product','rating', )
     search_fields = ('user','product','rating', )
     ordering = ['_id']
+    
+
+@admin.register(Promotion)
+class PromotionAdmin(admin.ModelAdmin):
+    list_display = ['_id', 'name', 'discount_amount', 'expired']
+    list_filter = ('name','discount_amount','expired', )
+    search_fields = ('name','discount_amount','expired', )
+    ordering = ['_id']
+    
+
+@admin.register(DiscountCoupon)
+class DiscountCouponAdmin(admin.ModelAdmin):
+    list_display = ['_id', 'user', 'coupon_code', 'discount_amount', 'expired']
+    list_filter = ('user','discount_amount','expired', )
+    search_fields = ('user','discount_amount','expired', )
+    ordering = ['_id']
+    
     
 
 

@@ -1,10 +1,12 @@
+from asyncio.windows_events import NULL
+import uuid # This is for unique big auto fields
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
 class Address(models.Model):
-    _id                 = models.AutoField(primary_key=True, editable=False)
+    _id                 = models.AutoField(primary_key=True)
     
     # Own attributes:
     address             = models.CharField(max_length=200, null=True, blank=True)
@@ -74,6 +76,17 @@ class Model(models.Model):
     
 
 
+class Promotion(models.Model):
+    _id                 = models.AutoField(primary_key=True, editable=False)
+    
+    # Own attributes:
+    name                = models.CharField(max_length=50, null=True, blank=True, unique=True)
+    discount_amount     = models.FloatField(blank=True,null=True)
+    expired             = models.BooleanField(default=False)
+     
+    def __str__(self):
+        return f'Promotion: {self.name} - Discount: {self.discount_amount}% - Expired: {self.expired}'
+
 class Provider(models.Model):
     _id                 = models.AutoField(primary_key=True, editable=False)
     
@@ -137,6 +150,7 @@ class Product(models.Model):
     brand               = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True) 
     model               = models.ForeignKey(Model, on_delete=models.SET_NULL, null=True) 
     size                = models.ForeignKey(Size, on_delete=models.SET_NULL, null=True) 
+    promotion           = models.ForeignKey(Promotion, on_delete=models.SET_NULL, null=True, blank=True)
     
     # Own attributes:
     name                = models.CharField(max_length=200, null=False, blank=False)
@@ -148,7 +162,7 @@ class Product(models.Model):
     )
     condition           = models.CharField(max_length=10, choices=CONDITIONS, null=True, blank=True)
     
-    price               = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
+    price               = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     CURRENCIES = (
         ('USD', 'USD'),
         ('ARS', 'ARS'),
@@ -279,6 +293,21 @@ class ShippingAddress(models.Model):
 
 
 
+
+
+class DiscountCoupon(models.Model):
+    _id                 = models.AutoField(primary_key=True, editable=False)
+    
+    # Foreign keys:
+    user                = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+    
+    # Own attributes:
+    coupon_code         = models.UUIDField(primary_key=False, editable=False, default=uuid.uuid4)
+    discount_amount     = models.FloatField()
+    expired             = models.BooleanField(default=False)
+     
+    def __str__(self):
+        return f'Code: {self.coupon_code} - Discount: {self.discount_amount}% - Expired: {self.expired}'
 
 
 
