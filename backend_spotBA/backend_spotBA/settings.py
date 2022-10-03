@@ -121,7 +121,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False #Por defecto viene: True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -144,7 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-# For Django registration redux:
+# Para utilizar Django registration redux:
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'django.contrib.auth.views.login'
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
@@ -152,7 +152,27 @@ REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
 SITE_ID = 1
 
 
+# PARA ACTIVAR EL DEBUG TOOLBAR:
 
+if DEBUG:
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',               
+    ]
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+    INTERNAL_IPS = [
+        '127.0.0.1',
+    ]
+    
+    # this is the main reason for not showing up the toolbar
+    import mimetypes
+    
+    mimetypes.add_type('application/javascript','.js', True)
+    
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
 
 
 
