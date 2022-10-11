@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "variables.css",
+	"sources": [
+		"../scss/variables.scss"
+	],
+	"sourcesContent": [
+		"$mainColorColorOne: #EC5526;\r\n$mainColorColorTwo: #E26E6C;\r\n$mainColorLightOne: #FFFFFF;\r\n$mainColorLightTwo: #F7F9FC;\r\n$mainColorLightThree: #E6E6E6;\r\n$mainColorDarkOne: #222323;\r\n$textColorDarkOne: #222323;"
+	],
+	"names": [],
+	"mappings": ""
+}

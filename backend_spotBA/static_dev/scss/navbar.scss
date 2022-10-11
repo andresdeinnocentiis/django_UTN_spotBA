@@ -1,0 +1,54 @@
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    .main-dot {
+        color: $mainColorColor1;
+        font-size: 2rem;
+        margin-left: .1rem;
+    }
+}
+.navbar-container {
+    background-color: $mainColorLight1;
+    display: flex;
+    justify-content: space-between;
+    
+   
+    .navbar-brand {
+        margin-left: 2rem;
+    }
+
+    .navbar-collapse {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 2rem;
+        gap: 5rem;
+        
+        .nav-rest {
+
+            .last-item {
+                border-left: 2px solid $mainColorDark1;
+                padding-left: 1.5rem;
+                margin-left: 1.5rem;
+            }
+        }
+        
+    }
+    
+    .form-inline {
+        display: flex;
+        gap: 1rem;
+
+        .btn-outline-custom {
+            border: 1px solid $mainColorColor1;
+            color: $mainColorColor1;
+        }
+
+        .btn-outline-custom:hover {
+            background-color: $mainColorColor1;
+            color: $mainColorLight1;
+        }
+    }
+
+    
+
+}

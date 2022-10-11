@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "section.css",
+	"sources": [
+		"../scss/section.scss"
+	],
+	"sourcesContent": [
+		"/* NO FUNCIONA NO SÉ POR QUÉ\r\nmain {\r\n    .main-container {\r\n        .main-container {\r\n            .header__title {\r\n                color: red;\r\n            }\r\n        }\r\n    }\r\n} */"
+	],
+	"names": [],
+	"mappings": ";AAAA;;;;;;;;;IASI"
+}

@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-</head>
-<body>
-    {% if request.user.is_authenticated %}
-        <h1>Testing site: {{ nombre_sitio }} OK.</h1>
-        <p>Usuario autenticado</p>
-    {% else %}
-        <p>Debe estar autenticado para ver el contendio.</p>
-    {% endif %}
-</body>
-</html>
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+    {% block main %}
+    <main class="main-index">
+        {% include 'components/main_section.html' %} 
+    </main>
+    {% endblock %}
+
+    {% block first_section %}
+        {% include 'components/categories_section.html' %}
+    {% endblock %}
+{% endblock %}

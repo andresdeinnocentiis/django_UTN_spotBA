@@ -1,0 +1,142 @@
+:root {
+    --mainColorColorOne: #EC5526;
+    --mainColorColorTwo: #E26E6C;
+    --mainColorLightOne: #FFFFFF;
+    --mainColorLightTwo: #F7F9FC;
+    --mainColorLightThree: #E6E6E6;
+    --mainColorDarkOne: #222323;
+    --textColorDarkOne: #222323;
+}
+
+.main-index {
+    display: flex;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.main-container__header {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-around;
+    height: 100%;
+    border-radius: 15px;
+    background-color: var(--mainColorLightTwo);
+    padding: 3rem;
+    margin-top: 3rem;
+}
+
+
+
+.header__sec {
+    max-width: 50%;
+}
+
+.header__sec .sec1 {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.header__sec .sec1 .header-title{
+    font-weight: 900;
+    font-size: 5rem !important; /* No funciona no sé por qué */
+}
+
+.main-color {
+    color: var(--mainColorColorOne);
+}
+
+.header__sec .sec2 {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    
+}
+
+
+.sec2-container {
+    background-color: var(--mainColorColorOne);
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    align-self: center;
+    z-index: -1;
+}
+
+.header-img {
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    background-image: url("../../media/spotba_zapatilla2.png");
+    
+}
+
+.header__cta-btn {
+    background-color: var(--mainColorColorOne);
+    text-decoration: none;
+    color: var(--mainColorLightOne);
+    font-weight: bold;
+    padding: .5rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    margin-top: 3rem;
+    transition: all 0.5s 0s ease;
+}
+
+.header__cta-btn:hover {
+    background-color: var(--mainColorLightOne);
+    color: var(--mainColorColorOne);
+    border: 2px solid var(--mainColorColorOne);
+}
+
+.category-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.list-category {
+    display: flex;
+    list-style: none;
+    width: 65%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5rem 7rem;
+    padding: 0;
+}
+
+.category-card {
+    background-color: var(--mainColorLightTwo);
+    height: 13rem;
+    width: 9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 15px;
+    text-decoration: none;
+    transition: all 0.5s 0s ease;
+}
+
+.category-name {
+    font-weight: bold;
+    transition: all 0.5s 0s ease;
+}
+
+.category-card:hover {
+    box-shadow: 0px 13px 30px -7px rgba(0,0,0,0.8);
+    -webkit-box-shadow: 0px 13px 30px -7px rgba(0,0,0,0.8);
+    -moz-box-shadow: 0px 13px 30px -7px rgba(0,0,0,0.8);
+}
+
+.category-card:hover .category-name {
+    color: var(--mainColorColorOne);
+}

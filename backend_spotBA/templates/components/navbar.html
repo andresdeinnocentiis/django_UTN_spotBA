@@ -1,0 +1,51 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid navbar-container">
+        <a class="navbar-brand" href="{% url 'index' %}">SpotBA<span class='main-dot'>.</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="form-inline my-2 my-lg-0">
+                <input
+                    class="form-control me-2 mr-sm-2"
+                    type="search"
+                    placeholder="Search Products"
+                    aria-label="Search"
+                />
+                <button class="btn btn-outline-custom my-2 my-sm-0" type="submit">
+                    Search
+                </button>
+            </form>
+            <ul class="navbar-nav mb-2 mb-lg-0 nav-rest">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'products' %}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                </li>
+                
+                {% if  request.user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle last-item" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{request.user.username}}
+                        </a>
+                        <ul class="dropdown-menu ms-5">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">My cart</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                      </li>
+                {% else %}
+                    <a class="nav-link disabled last-item" href="#">Login</a>
+                {% endif %}
+            </ul>
+            
+        </div>
+    </div>
+</nav>

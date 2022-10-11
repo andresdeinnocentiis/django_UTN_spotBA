@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Products</h1>
+
+
+<div class="category-container">
+    <ul class="list-category">
+        {% for product in products %}
+            <a class="category-card" href="http://"><li class="category-name">{{ product.name }} - ${{product.price}}</li></a>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
